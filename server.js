@@ -1,11 +1,12 @@
-
-
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const doteenv = require('dotenv');
+const dotenv = require('dotenv');
 
-doteenv.config();
+dotenv.config();
+
+const str = process.env.DB_CONNECT
+console.log(process.env.DB_CONNECT);
 
 //connect to the database
 mongoose.connect(process.env.DB_CONNECT,
