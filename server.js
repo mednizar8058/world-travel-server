@@ -1,13 +1,10 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+const dotenv = require('dotenv').config();
 
-dotenv.config();
 
 const str = process.env.DB_CONNECT
-console.log(process.env.DB_CONNECT);
-
 //connect to the database
 mongoose.connect(process.env.DB_CONNECT,
 { useNewUrlParser: true },
