@@ -3,9 +3,12 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const doteenv = require('dotenv');
+
+doteenv.config();
 
 //connect to the database
-mongoose.connect('mongodb+srv://bino:Binoonib123123@cluster0.e2xpy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+mongoose.connect(process.env.DB_CONNECT,
 { useNewUrlParser: true },
 () => console.log("connected to the database !")
 );
