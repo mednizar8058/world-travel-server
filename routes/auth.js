@@ -20,6 +20,9 @@ router.post('/registration', async (req,res) =>{
     const emailExist = await User.findOne({email : req.body.email});
     if(emailExist) return res.status(400).send('email already exist');
 
+    //now we need to hash the password --never store the password as plain text :( --
+     
+
 
 
     // create a user after validation
