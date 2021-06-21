@@ -1,16 +1,10 @@
 //this is a route
 const router = require('express').Router();
-
-const User = require('../model/User')
+const User = require('../model/User');
+const {registerValidation} = require('../validation');
 
 //user validation
-const Joi = require('@hapi/joi');
-const schema = Joi.object({
-    fname : Joi.string().min(6).required(),
-    lname : Joi.string().min(6).required(),
-    email : Joi.string().min(7).email().required(),
-    password : Joi.string().min(6).required()
-});
+
 
 
 
@@ -19,11 +13,16 @@ const schema = Joi.object({
 //empty post route
 router.post('/registration', async (req,res) =>{
     //validating the data before creating a user
-    
-    const {error} = schema.validate(req.body);
+    const {error} = registerValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message);
-    
 
+    // check if user exist
+    const emailExist = await User.findOne({email : req.body.email});
+    if(emailExist) return res.status(400).send('email already exist');
+
+
+
+    // create a user after validation
     const user = new User({
         fname : req.body.fname,
         lname : req.body.lname,
