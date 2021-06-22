@@ -53,17 +53,17 @@ router.post('/login', async (req,res) =>{
     if(error) return res.status(400).send(error.details[0].message);
 
     // check if user exists
-    const userExist = await User.findOne({email : req.body.email});
-    if(!userExist) return res.status(400).send("check ur email or password");
+    const user = await User.findOne({email : req.body.email});
+    if(!user) return res.status(400).send("check ur email or password");
 
     //check if password is correct
-    const validPassword = await bcrypt.compare(req.body.password, userExist.password);
+    const validPassword = await bcrypt.compare(req.body.password, user.password);
     if(!validPassword) return res.status(400).send('invalid password');
 
     //create and assign a token
-
-
-    res.send('login in succesful');
+    const token = jwt.sign({_id : user._id}, process.env.TOKEN_SECRET);
+    res.header('auth-token', token).send(token);
+    
 
     
 
