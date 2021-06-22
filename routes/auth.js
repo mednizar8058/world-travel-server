@@ -1,10 +1,9 @@
 //this is a route
 const router = require('express').Router();
-const { required } = require('@hapi/joi');
 const User = require('../model/User');
 const {registerValidation, loginValidation} = require('../validation');
 const bcrypt = require('bcryptjs');
-const user = require('../model/User');
+const jwt = require('jsonwebtoken');
 
 //user validation
 
@@ -60,6 +59,9 @@ router.post('/login', async (req,res) =>{
     //check if password is correct
     const validPassword = await bcrypt.compare(req.body.password, userExist.password);
     if(!validPassword) return res.status(400).send('invalid password');
+
+    //create and assign a token
+
 
     res.send('login in succesful');
 

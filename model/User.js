@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 //create schema to represents the model of a user
 const userSchema = new mongoose.Schema({
     fname : {
