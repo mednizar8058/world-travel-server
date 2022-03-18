@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
-
+Key key = getKeyFromConfiguration();
+		Cipher c = Cipher.getInstance(CIPHER_NAME);
+		c.init(Cipher.ENCRYPT_MODE, key);
+		List<Character> characterList = Arrays.asList(input);
+		password = new SealedObject((Serializable) characterList, c);
+		Arrays.fill(input, '\0');
 //create schema to represents the model of a user
 const userSchema = new mongoose.Schema({
     fname : {
